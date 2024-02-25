@@ -1,0 +1,23 @@
+.title {
+    font-weight: 800;
+    font-size: 40px;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+}
+
+.items-container {
+    text-align: left;
+}
+
+.kg-button {
+    min-width: 80px;
+    margin-left: 15px;
+}
+
+.kg-row {
+    margin: 10px 5px;
+}
