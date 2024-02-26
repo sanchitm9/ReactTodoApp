@@ -11,7 +11,7 @@ function App() {
   // Creating a handler for input item and date
 
   const handleNewItem = (itemName, itemDueDate) => {
-    console.log(`New item added: ${itemName} Date: ${itemDueDate}`);
+    // console.log(`New item added: ${itemName} Date: ${itemDueDate}`);
     const newTodoItems = [
       ...todoItems,
       { name: itemName, dueDate: itemDueDate },
