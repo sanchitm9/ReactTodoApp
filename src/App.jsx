@@ -4,6 +4,7 @@ import TodoItems from "./components/TodoItems";
 import "./App.css";
 import { useState } from "react";
 import WelcomeMessage from "./components/WelcomeMessage";
+import { TodoItemsContext } from "./store/todo-items-store";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
@@ -11,12 +12,18 @@ function App() {
   // Creating a handler for input item and date
 
   const handleNewItem = (itemName, itemDueDate) => {
-    // console.log(`New item added: ${itemName} Date: ${itemDueDate}`);
-    const newTodoItems = [
-      ...todoItems,
+    // const newTodoItems = [
+    //   ...todoItems,
+    //   { name: itemName, dueDate: itemDueDate },
+    // ];
+    // setTodoItems(newTodoItems);
+
+    // Functional updates: to avoid stale values during asynchronous updates
+
+    setTodoItems((currValue) => [
+      ...currValue,
       { name: itemName, dueDate: itemDueDate },
-    ];
-    setTodoItems(newTodoItems);
+    ]);
   };
 
   const handleDeleteClick = (itemName) => {
@@ -24,18 +31,21 @@ function App() {
     setTodoItems(newTodoItems);
   };
 
+  const defaultTodoItems = [{ name: "Buy Ghee", dueDate: "Now" }];
+
   return (
     // <>  Fragments: dont use div as it gives no purpose other than to return
     <>
-      <center className="todo-container">
-        <AppName />
-        <AddTodo onNewItem={handleNewItem} />
-        {todoItems.length === 0 && <WelcomeMessage />}
-        <TodoItems
-          todoItems={todoItems}
-          onDeleteClick={handleDeleteClick}
-        ></TodoItems>
-      </center>
+      <TodoItemsContext.Provider value={todoItems}>
+        <center className="todo-container">
+          <AppName />
+          <AddTodo onNewItem={handleNewItem} />
+          <WelcomeMessage/>
+          <TodoItems
+            onDeleteClick={handleDeleteClick}
+          ></TodoItems>
+        </center>
+      </TodoItemsContext.Provider>
     </>
   );
 }
